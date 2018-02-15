@@ -1,0 +1,32 @@
+.carpark {
+  margin: 1.5rem;
+
+  .carpark-floor {
+    border: 2px solid black;
+    border-right: none;
+    background: lightgrey;
+
+    .road {
+      height: 2.5rem;
+    }
+
+    .parkslot {
+      height: 3rem;
+      text-align: center;
+      border: 1px solid grey;
+      color: white;
+
+      &:last-child {
+        border-right: 2px solid black;
+      }
+
+      &:not(.occupy) {
+        background: lightblue;
+      }
+
+      &.occupy {
+        background: darkblue;
+      }
+    }
+  }
+}

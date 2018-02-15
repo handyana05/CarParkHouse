@@ -1,0 +1,23 @@
+<div *ngIf="carPark" class="carpark">
+  <h3>Car Park Floor: {{carPark.Floor}}</h3>
+  <div class="col-10 offset-1 carpark-floor">
+    <div class="row">
+      <app-parkslot class="col parkslot" *ngFor="let parkslot of carPark.ParkSlots | slice:0:9;" [parkSlot]="parkslot" (click)="onSelect(parkslot)"></app-parkslot>
+    </div>
+    <div class="row">
+      <div class="col-12 road"></div>
+    </div>
+    <div class="row">
+      <app-parkslot class="col parkslot" *ngFor="let parkslot of carPark.ParkSlots | slice:9:18;" [parkSlot]="parkslot" (click)="onSelect(parkslot)"></app-parkslot>
+    </div>
+    <div class="row">
+      <app-parkslot class="col parkslot" *ngFor="let parkslot of carPark.ParkSlots | slice:18:27;" [parkSlot]="parkslot" (click)="onSelect(parkslot)"></app-parkslot>
+    </div>
+    <div class="row">
+      <div class="col-12 road"></div>
+    </div>
+    <div class="row">
+      <app-parkslot class="col parkslot" *ngFor="let parkslot of carPark.ParkSlots | slice:27:36;" [parkSlot]="parkslot" (click)="onSelect(parkslot)"></app-parkslot>
+    </div>
+  </div>
+</div>

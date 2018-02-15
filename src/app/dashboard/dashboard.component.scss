@@ -1,0 +1,15 @@
+.dashboard {
+  margin-top: 2.25rem;
+  max-width: 100%;
+
+  & > .col-6 {
+    padding-right: 0;
+    padding-left: 0;
+  }
+
+  .buttons {
+    button {
+      margin: .25rem 1rem;
+    }
+  }
+}

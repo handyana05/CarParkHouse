@@ -1,0 +1,4 @@
+<div *ngIf="parkSlot" [ngClass]="{'occupy': parkSlot.IsOccupy}" style="width: 100%; height: 100%;">
+  <h5 *ngIf="!parkSlot.IsOccupy">{{parkSlot.Id}}</h5>
+  <span *ngIf="parkSlot.OccupyBy != ''">{{parkSlot.OccupyBy}}</span>
+</div>
