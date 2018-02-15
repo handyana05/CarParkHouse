@@ -15,6 +15,7 @@ export class DashboardComponent implements OnInit {
   countFreeParkSlots: number;
   selectedParkSlot: ParkSlot;
   selectedParkingTicket: ParkingTicket;
+  disabledAddButton = false;
   disabledPayButton = true;
   disabledExitButton = true;
 
@@ -37,9 +38,13 @@ export class DashboardComponent implements OnInit {
   }
 
   onAddCar() {
-    const parkingTicket = this.airportCarParksService.PrintTicket(this.generateMunichAutoLicense());
-    this.airportCarParksService.EnterCarPark(parkingTicket.Id);
-    this.countFreeParkSlots = this.airportCarParksService.CountFreeParkSlots();
+    if (this.countFreeParkSlots > 0) {
+      const parkingTicket = this.airportCarParksService.PrintTicket(this.generateMunichAutoLicense());
+      this.airportCarParksService.EnterCarPark(parkingTicket.Id);
+      this.countFreeParkSlots = this.airportCarParksService.CountFreeParkSlots();
+
+      this.disabledAddButton = this.countFreeParkSlots === 0;
+    }
   }
 
   onRemoveCar() {
@@ -54,6 +59,7 @@ export class DashboardComponent implements OnInit {
       this.disabledExitButton = true;
     }
     this.countFreeParkSlots = this.airportCarParksService.CountFreeParkSlots();
+    this.disabledAddButton = this.countFreeParkSlots === 0;
   }
 
   onPayParkingTicket() {

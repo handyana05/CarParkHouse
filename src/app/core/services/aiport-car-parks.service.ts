@@ -7,7 +7,6 @@ import {ParkingTicket} from '../models/parkTicket';
 @Injectable()
 export class AiportCarParksService {
   /*** Private Variables ***/
-  private isSystemStarted = false;
   private floorTotalCount = 3;
   private parkSlotsFloorTotalCount = 36;
   private backupData = './carparks.json';
@@ -19,6 +18,7 @@ export class AiportCarParksService {
   private stopSystemIntervalId: any;
 
   /*** Public Variables **/
+  IsSystemStarted = false;
   CarParks: CarPark[];
   ParkingTickets: ParkingTicket[];
 
@@ -33,12 +33,12 @@ export class AiportCarParksService {
    ********************************************************/
   StartAirportCarParksSystem(forceStart: boolean = false): Promise<void> {
     return new Promise((resolve, reject) => {
-      if ((forceStart || this.InOpenHours()) && !this.isSystemStarted) {
+      if ((forceStart || this.InOpenHours()) && !this.IsSystemStarted) {
         this.initAirportSystem();
-        this.isSystemStarted = true;
+        this.IsSystemStarted = true;
       }
 
-      if (!this.isSystemStarted) {
+      if (!this.IsSystemStarted) {
         this.startSystemIntervalId = setInterval(this.StartAirportCarParksSystem, 1000 * 60);
       } else {
         clearInterval(this.startSystemIntervalId);
@@ -54,8 +54,8 @@ export class AiportCarParksService {
    ********************************************************************/
   ShutdownAirportCarParkSystem(forceShutdown: boolean = false): Promise<void> {
     return new Promise((resolve, reject) => {
-      if ((forceShutdown || this.OutOfOpenHours()) && this.isSystemStarted) {
-        this.isSystemStarted = false;
+      if ((forceShutdown || this.OutOfOpenHours()) && this.IsSystemStarted) {
+        this.IsSystemStarted = false;
 
         // If there are still cars inside the car parks,
         // then save it into JSON
@@ -82,7 +82,7 @@ export class AiportCarParksService {
    **********************************************/
   CountFreeParkSlots(): number {
     let count = 0;
-    if (this.isSystemStarted) {
+    if (this.IsSystemStarted) {
       for (let i = 0; i < this.CarParks.length; i++) {
         count += this.CarParks[i].CountFreeParkSlots();
       }
